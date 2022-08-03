@@ -1,7 +1,6 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Test',
+    title: 'Frontend-Test-Market',
     htmlAttrs: {
       lang: 'en'
     },
@@ -18,6 +17,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/scss/main.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
