@@ -3,7 +3,7 @@
   <div class="addProduct__header">
     <p>Добавление товара</p>
   </div>
-  <div class="addProduct__form">
+  <div class="addProduct__form" :class="{fixed: fixFormAddProduct}">
     <div class="addProduct__form__field" id="nameProduct">
       <div class="addProduct__form__field__name">
         <p>Наименование товара</p>
@@ -53,6 +53,7 @@ export default {
       active: false
     }
   },
+  props: ['fixFormAddProduct'],
   watch: {
     'name'() {
       this.active = this.checkFields()
@@ -90,7 +91,16 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.active)
+      if (this.active) {
+        let product = {
+          id: this.$store.state?.products[this.$store.state.products.length -1]?.id + 1 || 1,
+          name: this.name,
+          about: this.about,
+          img: this.srcImg,
+          price: this.price
+        }
+        this.$store.commit('addProduct', product)
+      }
     },
     checkFields () {
       if (this.name.length && this.about.length && this.srcImg && parseInt(this.price) > 0 && /^[0-9]+$/.test(this.price)) {

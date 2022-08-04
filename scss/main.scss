@@ -16,5 +16,6 @@ body {
 }
 
 .main {
-    display: flex;
+    display: grid;
+    grid-template-columns: 364px calc(100vw - 364px);
 }

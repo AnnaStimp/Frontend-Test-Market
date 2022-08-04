@@ -10,14 +10,14 @@
       </div>
     </div>
     <div class="cardsOfProduct__items">
-      <div class="cardsOfProduct__items__item" v-for="i in 20" :key="i">
-        <img src="@/assets/img.png" alt="">
+      <div class="cardsOfProduct__items__item" v-for="product in $store.state.products" :key="product.id">
+        <img :src="product.img" alt="">
         <div class="cardsOfProduct__items__item__text">
-          <p class="cardsOfProduct__items__item__text__name">Наименование товара</p>
-          <p class="cardsOfProduct__items__item__text__about">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-          <p class="cardsOfProduct__items__item__text__price">10 000 руб.</p>
+          <p class="cardsOfProduct__items__item__text__name">{{ product.name }}</p>
+          <p class="cardsOfProduct__items__item__text__about">{{ product.about }}</p>
+          <p class="cardsOfProduct__items__item__text__price">{{ product.price }} руб.</p>
         </div>
-        <div class="cardsOfProduct__items__item__delete">
+        <div class="cardsOfProduct__items__item__delete" @click="$store.commit('deleteProduct', product.id)">
           <img src="@/assets/delete.svg" alt="">
         </div>
       </div>
@@ -52,6 +52,12 @@ export default {
       ],
       selectParam: 4,
       openMenu: false
+    }
+  },
+  methods: {
+    deleteProduct(id) {
+      console.log(id)
+      console.log(this.$store.state.products)
     }
   }
 }

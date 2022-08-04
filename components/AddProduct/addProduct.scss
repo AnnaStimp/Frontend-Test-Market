@@ -16,6 +16,11 @@
         padding: 24px;
         width: fit-content;
 
+        &.fixed {
+            position: fixed;
+            top: 24px;
+        }
+
         &__field {
             display: flex;
             flex-direction: column;

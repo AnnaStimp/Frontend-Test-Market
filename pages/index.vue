@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <AddProduct />
+    <AddProduct :fixFormAddProduct="fixFormAddProduct"/>
     <CardsOfProduct />
   </div>
 </template>
@@ -14,6 +14,20 @@ export default {
   components: {
     AddProduct,
     CardsOfProduct
+  },
+  data() {
+    return {
+      fixFormAddProduct: false
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', () => {
+      if (document.documentElement.scrollTop >= 59) {
+        this.fixFormAddProduct = true
+      } else {
+        this.fixFormAddProduct = false
+      }
+    })
   }
 }
 </script>
