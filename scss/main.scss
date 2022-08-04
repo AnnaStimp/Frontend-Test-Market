@@ -12,5 +12,9 @@ body {
     &::-webkit-scrollbar {
         width: 0;
     }
-    background: #E5E5E5;
+    background: #faf9f7;
+}
+
+.main {
+    display: flex;
 }
