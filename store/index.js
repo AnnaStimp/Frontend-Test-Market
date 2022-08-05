@@ -12,7 +12,7 @@ export const mutations = {
     localStorage.setItem('products', JSON.stringify(state.products))
   },
   changeProducts (state, products) {
-    state.products = products
+    state.products = products || []
   }
 }
   

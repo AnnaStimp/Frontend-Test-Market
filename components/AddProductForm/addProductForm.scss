@@ -15,11 +15,8 @@
         border-radius: 4px;
         padding: 24px;
         width: fit-content;
-
-        &.fixed {
-            position: fixed;
-            top: 24px;
-        }
+        position: sticky;
+        top: 24px;
 
         &__field {
             display: flex;

@@ -66,22 +66,22 @@ export default {
       if (filterId == 1) {
         this.products = this.$store.state.products
       } else if (filterId == 2) {
-        this.ascendingPrice()
+        this.sortProductsByAscendingPrice()
       } else if (filterId == 3) {
-        this.descendingPrice()
+        this.sortProductsByDescendingPrice()
       } else if (filterId == 4) {
-        this.sortByName()
+        this.sortProductsByName()
       }
       this.selectParam = filterId
       this.openMenu = false
     },
-    ascendingPrice () { // функция, выполняющая сортировку товаров по возрастанию цены
+    sortProductsByAscendingPrice () {
       const items = Object.assign([], this.products)
-      items.sort(function (a, b) {
-        if (parseInt(a.price.replaceAll(" ", "")) > parseInt(b.price.replaceAll(" ", ""))) {
+      items.sort((a, b) => {
+        if (parseInt(a.price.replaceAll(' ', '')) > parseInt(b.price.replaceAll(' ', ''))) {
           return 1
         }
-        if (parseInt(a.price.replaceAll(" ", "")) < parseInt(b.price.replaceAll(" ", ""))) {
+        if (parseInt(a.price.replaceAll(' ', '')) < parseInt(b.price.replaceAll(' ', ''))) {
           return -1
         }
         return -1
@@ -89,13 +89,13 @@ export default {
 
       this.products = items
     },
-    descendingPrice () { // функция, выполняющая сортировку товаров по убыванию цены
+    sortProductsByDescendingPrice () {
       const items = Object.assign([], this.products)
-      items.sort(function (a, b) {
-        if (parseInt(a.price.replaceAll(" ", "")) < parseInt(b.price.replaceAll(" ", ""))) {
+      items.sort((a, b) => {
+        if (parseInt(a.price.replaceAll(' ', '')) < parseInt(b.price.replaceAll(' ', ''))) {
           return 1
         }
-        if (parseInt(a.price.replaceAll(" ", "")) > parseInt(b.price.replaceAll(" ", ""))) {
+        if (parseInt(a.price.replaceAll(' ', '')) > parseInt(b.price.replaceAll(' ', ''))) {
           return -1
         }
         return 1
@@ -103,9 +103,9 @@ export default {
 
       this.products = items
     },
-    sortByName () {
+    sortProductsByName () {
       const items = Object.assign([], this.products)
-      items.sort(function (a, b) {
+      items.sort((a, b) => {
         let nameA = a.name.toLowerCase()
         let nameB = b.name.toLowerCase()
         if (nameA < nameB) //сортируем строки по возрастанию

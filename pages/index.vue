@@ -1,18 +1,18 @@
 <template>
   <div class="main">
-    <AddProduct :fixFormAddProduct="fixFormAddProduct"/>
+    <AddProductForm :fixFormAddProduct="fixFormAddProduct"/>
     <CardsOfProduct />
   </div>
 </template>
 
 <script>
-import AddProduct from '@/components/AddProduct/AddProduct.vue'
+import AddProductForm from '@/components/AddProductForm/AddProductForm.vue'
 import CardsOfProduct from '@/components/CardsOfProduct/CardsOfProduct.vue'
 
 export default {
   name: 'MainPage',
   components: {
-    AddProduct,
+    AddProductForm,
     CardsOfProduct
   },
   data() {
@@ -21,13 +21,6 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', () => {
-      if (document.documentElement.scrollTop >= 59) {
-        this.fixFormAddProduct = true
-      } else {
-        this.fixFormAddProduct = false
-      }
-    })
     this.$store.commit('changeProducts', JSON.parse(localStorage.getItem('products')))
   }
 }

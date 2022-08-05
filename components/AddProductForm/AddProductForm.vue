@@ -4,7 +4,7 @@
     <p>Добавление товара</p>
   </div>
   <div class="addProduct__form" :class="{fixed: fixFormAddProduct}">
-    <div class="addProduct__form__field" id="nameProduct">
+    <div class="addProduct__form__field" ref="nameProduct">
       <div class="addProduct__form__field__name">
         <p>Наименование товара</p>
         <div class="addProduct__form__field__name__necessarily"></div>
@@ -18,7 +18,7 @@
       </div>
       <textarea class="addProduct__form__field__input textarea" placeholder="Введите описание товара" v-model="about"></textarea>
     </div>
-    <div class="addProduct__form__field" id="srcImgProduct">
+    <div class="addProduct__form__field" ref="srcImgProduct">
       <div class="addProduct__form__field__name">
         <p>Ссылка на изображение товара</p>
         <div class="addProduct__form__field__name__necessarily"></div>
@@ -26,7 +26,7 @@
       <input type="url" class="addProduct__form__field__input" placeholder="Введите ссылку" v-model="srcImg">
       <span class="addProduct__form__field__error">Поле является обязательным</span>
     </div>
-    <div class="addProduct__form__field" id="priceProduct">
+    <div class="addProduct__form__field" ref="priceProduct">
       <div class="addProduct__form__field__name">
         <p>Цена товара</p>
         <div class="addProduct__form__field__name__necessarily"></div>
@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import './addProduct.scss'
+import './addProductForm.scss'
 
 export default {
-  name: 'AddProduct',
+  name: 'AddProductForm',
   data () {
     return {
       name: '',
@@ -58,28 +58,25 @@ export default {
     'name'() {
       this.active = this.checkFields()
       if (this.name.length == 0) {
-        document.querySelector('#nameProduct').classList.add('error')
+        this.$refs.nameProduct.classList.add('error')
       } else {
-        document.querySelector('#nameProduct').classList.remove('error')
+        this.$refs.nameProduct.classList.remove('error')
       }
-    },
-    'about'() {
-      this.active = this.checkFields()
     },
     'srcImg'() {
       this.active = this.checkFields()
       if (this.srcImg.length == 0) {
-        document.querySelector('#srcImgProduct').classList.add('error')
+        this.$refs.srcImgProduct.classList.add('error')
       } else {
-        document.querySelector('#srcImgProduct').classList.remove('error')
+        this.$refs.srcImgProduct.classList.remove('error')
       }
     },
     'price'() {
       this.active = this.checkFields()
-      if (parseInt(this.price.replaceAll(" ", "")) <= 0 || !/^[0-9]+$/.test(this.price.replaceAll(" ", ""))) {
-        document.querySelector('#priceProduct').classList.add('error')
+      if (parseInt(this.price.replaceAll(' ', '')) <= 0 || !/^[0-9]+$/.test(this.price.replaceAll(' ', ''))) {
+        this.$refs.priceProduct.classList.add('error')
       } else {
-        document.querySelector('#priceProduct').classList.remove('error')
+        this.$refs.priceProduct.classList.remove('error')
       }
     }
   },
@@ -97,13 +94,13 @@ export default {
       }
     },
     checkFields () {
-      if (this.name.length && this.about.length && this.srcImg && parseInt(this.price.replaceAll(" ", "")) > 0 && /^[0-9]+$/.test(this.price.replaceAll(" ", ""))) {
+      if (this.name.length && this.srcImg && parseInt(this.price.replaceAll(' ', '')) > 0 && /^[0-9]+$/.test(this.price.replaceAll(' ', ''))) {
         return true
       }
       return false
     },
     checkPrice() {
-      this.price = String(parseInt(this.price.replaceAll(" ", ""))).replace(/[^0-9.]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+      this.price = String(parseInt(this.price.replaceAll(' ', ''))).replace(/[^0-9.]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     }
   }
 }
