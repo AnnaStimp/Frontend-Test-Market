@@ -28,6 +28,7 @@ export default {
         this.fixFormAddProduct = false
       }
     })
+    this.$store.commit('changeProducts', JSON.parse(localStorage.getItem('products')))
   }
 }
 </script>

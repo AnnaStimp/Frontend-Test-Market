@@ -1,5 +1,5 @@
 .cardsOfProduct {
-    margin: 32px 32px 0 16px;
+    margin: 32px 32px 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -95,7 +95,7 @@
             border-radius: 4px;
             height: 100%;
             display: grid;
-            grid-template-rows: 47% 1fr;
+            grid-template-rows: 200px auto;
             position: relative;
             height: 100%;
 
@@ -110,6 +110,7 @@
                 object-fit: cover;
                 height: 100%;
                 border-radius: 4px 4px 0 0;
+                height: 200px;
             }
 
             &__text {

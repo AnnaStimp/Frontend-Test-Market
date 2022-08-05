@@ -31,7 +31,7 @@
         <p>Цена товара</p>
         <div class="addProduct__form__field__name__necessarily"></div>
       </div>
-      <input type="text" class="addProduct__form__field__input" placeholder="Введите цену" v-model="price" @focus="price = 0">
+      <input type="text" class="addProduct__form__field__input" placeholder="Введите цену" v-model="price" @input="checkPrice()">
       <span class="addProduct__form__field__error">Поле является обязательным</span>
     </div>
     <button class="addProduct__form__button" :class="{active: this.active}" @click="submit()">Добавить товар</button>
@@ -76,13 +76,7 @@ export default {
     },
     'price'() {
       this.active = this.checkFields()
-      if (this.price.length != 0) {
-        this.price = parseInt(this.price)
-      } else {
-        this.price = 0
-      }
-      
-      if (parseInt(this.price) <= 0) {
+      if (parseInt(this.price.replaceAll(" ", "")) <= 0 || !/^[0-9]+$/.test(this.price.replaceAll(" ", ""))) {
         document.querySelector('#priceProduct').classList.add('error')
       } else {
         document.querySelector('#priceProduct').classList.remove('error')
@@ -103,10 +97,13 @@ export default {
       }
     },
     checkFields () {
-      if (this.name.length && this.about.length && this.srcImg && parseInt(this.price) > 0 && /^[0-9]+$/.test(this.price)) {
+      if (this.name.length && this.about.length && this.srcImg && parseInt(this.price.replaceAll(" ", "")) > 0 && /^[0-9]+$/.test(this.price.replaceAll(" ", ""))) {
         return true
       }
       return false
+    },
+    checkPrice() {
+      this.price = String(parseInt(this.price.replaceAll(" ", ""))).replace(/[^0-9.]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     }
   }
 }

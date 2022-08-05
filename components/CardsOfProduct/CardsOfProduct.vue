@@ -6,11 +6,11 @@
         <img src="@/assets/arrow_custom.svg" alt="">
       </div>
       <div class="cardsOfProduct__filter__menu">
-        <p v-for="param in filterParams.filter((el) => !(el.id == selectParam))" :key="param.id" @click="selectParam = param.id; openMenu = false">{{ param.name }}</p>
+        <p v-for="param in filterParams.filter((el) => !(el.id == selectParam))" :key="param.id" @click="filterProduct(param.id)">{{ param.name }}</p>
       </div>
     </div>
     <div class="cardsOfProduct__items">
-      <div class="cardsOfProduct__items__item" v-for="product in $store.state.products" :key="product.id">
+      <div class="cardsOfProduct__items__item" v-for="product in products" :key="product.id">
         <img :src="product.img" alt="">
         <div class="cardsOfProduct__items__item__text">
           <p class="cardsOfProduct__items__item__text__name">{{ product.name }}</p>
@@ -50,14 +50,71 @@ export default {
           name: 'По наименованию'
         }
       ],
-      selectParam: 4,
-      openMenu: false
+      selectParam: 1,
+      openMenu: false,
+      products: this.$store.state.products
+    }
+  },
+  watch: {
+    '$store.state.products'() {
+      this.products = this.$store.state.products
+      this.filterProduct(this.selectParam)
     }
   },
   methods: {
-    deleteProduct(id) {
-      console.log(id)
-      console.log(this.$store.state.products)
+    filterProduct(filterId) {
+      if (filterId == 1) {
+        this.products = this.$store.state.products
+      } else if (filterId == 2) {
+        this.ascendingPrice()
+      } else if (filterId == 3) {
+        this.descendingPrice()
+      } else if (filterId == 4) {
+        this.sortByName()
+      }
+      this.selectParam = filterId
+      this.openMenu = false
+    },
+    ascendingPrice () { // функция, выполняющая сортировку товаров по возрастанию цены
+      const items = Object.assign([], this.products)
+      items.sort(function (a, b) {
+        if (parseInt(a.price.replaceAll(" ", "")) > parseInt(b.price.replaceAll(" ", ""))) {
+          return 1
+        }
+        if (parseInt(a.price.replaceAll(" ", "")) < parseInt(b.price.replaceAll(" ", ""))) {
+          return -1
+        }
+        return -1
+      })
+
+      this.products = items
+    },
+    descendingPrice () { // функция, выполняющая сортировку товаров по убыванию цены
+      const items = Object.assign([], this.products)
+      items.sort(function (a, b) {
+        if (parseInt(a.price.replaceAll(" ", "")) < parseInt(b.price.replaceAll(" ", ""))) {
+          return 1
+        }
+        if (parseInt(a.price.replaceAll(" ", "")) > parseInt(b.price.replaceAll(" ", ""))) {
+          return -1
+        }
+        return 1
+      })
+
+      this.products = items
+    },
+    sortByName () {
+      const items = Object.assign([], this.products)
+      items.sort(function (a, b) {
+        let nameA = a.name.toLowerCase()
+        let nameB = b.name.toLowerCase()
+        if (nameA < nameB) //сортируем строки по возрастанию
+          return -1
+        if (nameA > nameB)
+          return 1
+        return 0
+      })
+      this.products = items
     }
   }
 }
