@@ -78,13 +78,7 @@ export default {
     sortProductsByAscendingPrice () {
       const items = Object.assign([], this.products)
       items.sort((a, b) => {
-        if (parseInt(a.price.replaceAll(' ', '')) > parseInt(b.price.replaceAll(' ', ''))) {
-          return 1
-        }
-        if (parseInt(a.price.replaceAll(' ', '')) < parseInt(b.price.replaceAll(' ', ''))) {
-          return -1
-        }
-        return -1
+        return parseInt(a.price.replaceAll(' ', '')) - parseInt(b.price.replaceAll(' ', ''))
       })
 
       this.products = items
@@ -92,13 +86,7 @@ export default {
     sortProductsByDescendingPrice () {
       const items = Object.assign([], this.products)
       items.sort((a, b) => {
-        if (parseInt(a.price.replaceAll(' ', '')) < parseInt(b.price.replaceAll(' ', ''))) {
-          return 1
-        }
-        if (parseInt(a.price.replaceAll(' ', '')) > parseInt(b.price.replaceAll(' ', ''))) {
-          return -1
-        }
-        return 1
+        return parseInt(b.price.replaceAll(' ', '')) - parseInt(a.price.replaceAll(' ', ''))
       })
 
       this.products = items

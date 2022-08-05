@@ -91,6 +91,16 @@ export default {
           price: this.price
         }
         this.$store.commit('addProduct', product)
+
+        this.name = ''
+        this.about = ''
+        this.srcImg = ''
+        this.price = ''
+        setTimeout(() => {
+          this.$refs.nameProduct.classList.remove('error')
+          this.$refs.srcImgProduct.classList.remove('error')
+          this.$refs.priceProduct.classList.remove('error')
+        })
       }
     },
     checkFields () {
